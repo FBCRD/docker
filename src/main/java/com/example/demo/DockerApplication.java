@@ -12,6 +12,10 @@ public class DockerApplication {
 	public String hello() {
 		return "Hello from Dockerized Spring Boot!";
 	}
+	@GetMapping("/aluno")
+	public String aluno() {
+		return "Aluno";
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(DockerApplication.class, args);
 	}
