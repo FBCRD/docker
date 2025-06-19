@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("usuario", userRepository.findAll());
         return "index";
     }
 
