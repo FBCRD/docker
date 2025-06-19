@@ -1,20 +1,18 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Usuario;
 import com.example.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.demo.model.Usuario;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+    @Autowired
+    private UserRepository userRepository;
 
-    private final UserRepository userRepository;
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
     @GetMapping("/teste")
     public String teste() {
         return "Aplicação funcionando!";
@@ -22,7 +20,7 @@ public class UserController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("usuario", userRepository.findAll());
+        model.addAttribute("usuarios", userRepository.findAll());
         return "index";
     }
 
