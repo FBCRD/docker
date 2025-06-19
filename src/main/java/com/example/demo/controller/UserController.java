@@ -15,6 +15,10 @@ public class UserController {
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    @GetMapping("/teste")
+    public String teste() {
+        return "Aplicação funcionando!";
+    }
 
     @GetMapping("/")
     public String index(Model model) {
