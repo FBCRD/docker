@@ -1,1 +1,4 @@
+com\example\demo\model\Usuario.class
 com\example\demo\DockerApplication.class
+com\example\demo\controller\UserController.class
+com\example\demo\repository\UserRepository.class

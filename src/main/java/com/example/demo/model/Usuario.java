@@ -6,7 +6,8 @@ import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 
 @Entity
-public class User {
+public class Usuario {
+    @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,10 +16,10 @@ public class User {
 
     private String email;
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(String name, String email) {
+    public Usuario(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -33,4 +34,10 @@ public class User {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 }

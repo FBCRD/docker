@@ -4,7 +4,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.demo.model.User;
+import com.example.demo.model.Usuario;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -23,12 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/add")
-    public String addUserForm(User user) {
+    public String addUserForm(Usuario user) {
         return "addUser";
     }
 
     @PostMapping("/add")
-    public String addUser(User user) {
+    public String addUser(Usuario user) {
         userRepository.save(user);
         return "redirect:/";
     }
