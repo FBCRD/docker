@@ -13,16 +13,16 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/")
-    public String teste() {
-        return "Aplicação funcionando!";
-    }
-
 //    @GetMapping("/")
-//    public String index(Model model) {
-//        model.addAttribute("usuarios", userRepository.findAll());
-//        return "index";
+//    public String teste() {
+//        return "Aplicação funcionando!";
 //    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("usuarios", userRepository.findAll());
+        return "index";
+    }
 //
 //    @GetMapping("/add")
 //    public String addUserForm(Usuario user) {
