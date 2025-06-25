@@ -15,7 +15,7 @@ public class UserController {
 
 
 
-    @GetMapping("/")
+    @GetMapping("//")
     public String index(Model model) {
         model.addAttribute("usuarios", userRepository.findAll());
         return "index";
