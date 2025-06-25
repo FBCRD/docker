@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:21-jdk-slim
 
 # Instalar Git e Maven
 RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/*
@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/
 WORKDIR /app
 
 # Clone o projeto diretamente do GitHub
-RUN git clone https://github.com/FBCRD/docker.git .
 
+RUN git clone https://github.com/FBCRD/docker.git .
 # Compilar o projeto
 RUN mvn clean package -DskipTests
 
