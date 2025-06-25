@@ -19,5 +19,5 @@ RUN mkdir -p /app/logs
 EXPOSE 8080
 
 # Inicializar a aplicação
-ENTRYPOINT ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar.jar", "--logging.file.path=/app/logs"]
+ENTRYPOINT ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar", "--logging.file.path=/app/logs"]
 
