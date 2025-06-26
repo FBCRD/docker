@@ -1,0 +1,42 @@
+package org.sis.controller.botoesVoltar;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.sis.dao.CartaoDao;
+import org.sis.dao.UsuarioDao;
+import org.sis.model.Usuario;
+
+import java.io.IOException;
+@WebServlet("Voltarpagcartao")
+public class VoltarpagCartoes extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession sessao = req.getSession(false);
+        Usuario usuario = null;
+        int id_user = -1;
+
+        if (sessao != null) {
+            usuario = (Usuario) sessao.getAttribute("sessaousuario");
+            String sessaoId = (String) sessao.getAttribute("id");
+            if (usuario != null) {
+                id_user = usuario.getId_usuario();
+            } else {
+                System.out.println("erro no usuario");
+            }
+        } else {
+            System.out.println("Erro na sessao");
+        }
+
+        Usuario user = new UsuarioDao().getusuario(id_user);
+
+        req.setAttribute("cartoes", new CartaoDao().getCartoes2(id_user));
+        RequestDispatcher rd =
+                req.getRequestDispatcher("WEB-INF/pages/CadastraCartao.jsp");
+        rd.forward(req, resp);
+    }
+}

@@ -1,21 +1,27 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  db:
-    image: postgres:15
+  postgres:
+    image: postgres:13
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1228
-      POSTGRES_DB: meubanco
+      POSTGRES_DB: sistema
     ports:
       - "5432:5432"
-  
-  app:
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  wildfly:
     build: .
-    depends_on:
-      - db
     ports:
       - "8080:8080"
-    volumes: 
-      - ./logs:/app/logs
+    depends_on:
+      - postgres
+    environment:
+      JAVA_OPTS: "-Djboss.bind.address=0.0.0.0"
+    volumes:
+      - ./logs:/opt/jboss/wildfly/standalone/log
 
+volumes:
+  pgdata:

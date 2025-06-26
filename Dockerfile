@@ -1,23 +1,28 @@
-FROM openjdk:17-jdk-slim
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Instala Git e Maven
-RUN apt-get update && apt-get install -y git maven && rm -rf /var/lib/apt/lists/*
-
-# Define o diretório de trabalho
+# Clona o repositório
 WORKDIR /app
-
-# Clone o projeto diretamente do GitHub
-RUN git clone https://github.com/FBCRD/docker.git .
+RUN apt-get update && apt-get install -y git
+RUN git clone https://github.com/fbcrd/docker.git projeto
 
 # Compila o projeto
+WORKDIR /app/projeto
 RUN mvn clean package -DskipTests
 
-# Cria a pasta de logs
-RUN mkdir -p /app/logs
 
-# Expor a porta 8080
+
+
+
+FROM jboss/wildfly:latest
+
+# Instala o driver JDBC do PostgreSQL
+RUN curl -L -o /opt/jboss/wildfly/standalone/deployments/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.7.3.jar
+
+# Copia o WAR da aplicação para ser implantado
+COPY target/*.war /opt/jboss/wildfly/standalone/deployments/
+
+# Expõe a porta padrão do WildFly
 EXPOSE 8080
 
-# Inicializar a aplicação
-ENTRYPOINT ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar", "--logging.file.path=/app/logs"]
-
+# Comando de inicialização
+ENTRYPOINT ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
